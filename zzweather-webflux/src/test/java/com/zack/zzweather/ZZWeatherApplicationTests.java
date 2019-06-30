@@ -21,22 +21,13 @@ public class ZZWeatherApplicationTests {
 	@Autowired
 	private WebTestClient client;
 
-	@Test
-	public void hello_world() {
-		client.get().uri("/hello_world")
-				.exchange()
-				.expectStatus().isOk()
-				.expectBody()
-                .consumeWith(response ->
-				Assertions.assertThat(response.getResponseBody()).isNotNull());
-	}
 
 	@Test
-	public void sseAsEvent() {
+	public void testCurrentWeather() {
 
 
 		List<WeatherDTO> result = this.client.get()
-				.uri("/event")
+				.uri("/current/event")
 				.accept(TEXT_EVENT_STREAM)
 				.exchange()
 				.expectStatus().isOk()
