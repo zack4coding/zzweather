@@ -15,5 +15,5 @@ This is a web application to  display current weather which implement by [Spring
 - #### zzweather-exception
      Global unified error and exception handle module,for the future, it will make issues being investigated in an elegant way.
 #### System Architecture 
-![architecture design](https://drive.google.com/file/d/1IpUB3RRKgCXP46psEJfWNphh_JQR7dqK/view)
+![architecture design](https://github.com/zack4coding/zzweather/blob/master/weather-service-architecture.png)
 
