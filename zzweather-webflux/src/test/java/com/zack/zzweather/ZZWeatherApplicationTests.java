@@ -1,11 +1,11 @@
 package com.zack.zzweather;
 
 import com.zack.zzweather.service.api.dto.WeatherDTO;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -41,4 +41,21 @@ public class ZZWeatherApplicationTests {
 
 		assertEquals(2, result.size());
 	}
+
+
+
+    @Test
+    public void testCityList() {
+
+        client.get().uri("/city/list")
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+                .expectBody()
+                .jsonPath("$.code").isEqualTo(100)
+                .jsonPath("$.message").isEqualTo("success")
+                .jsonPath("$.data").isArray()
+        ;
+    }
+
 }
