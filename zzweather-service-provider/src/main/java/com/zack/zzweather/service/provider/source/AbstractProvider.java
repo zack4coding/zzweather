@@ -15,6 +15,9 @@ public abstract class AbstractProvider implements Source {
         this.SOURCE_NAME = SOURCE_NAME;
     }
 
+    public AbstractProvider() {
+    }
+
     @Autowired
     private SourceManager manager;
 

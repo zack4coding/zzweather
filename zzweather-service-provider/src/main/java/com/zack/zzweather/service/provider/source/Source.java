@@ -8,11 +8,11 @@ import com.zack.zzweather.service.api.dto.WeatherDTO;
 public interface Source {
 
     /**
-     * Get current weather data from source by Postcode or Zcode of city.
-     * @param postcode
+     * Get current weather data from source by name of city.
+     * @param name
      * @return Weather data of the cities.
      */
-    WeatherDTO getCurrentWeatherByPostcode(String postcode);
+    WeatherDTO getCurrentWeatherByName(String name);
 
 
     /**

@@ -14,8 +14,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.springframework.http.MediaType.TEXT_EVENT_STREAM;
 
 @RunWith(SpringRunner.class)
@@ -72,10 +71,11 @@ public class ZZWeatherApplicationTests {
 	public void testGetCurrentWeatherByPostcode() {
 
 		source = sourceManager.getActivitySource();
-		WeatherDTO weatherDTO = source.getCurrentWeatherByPostcode("AU300000");
-		assertNull(weatherDTO);
-//        assertNotNull(weatherDTO);
-//        assertNotNull(weatherDTO.getCity());
-//        assertTrue(weatherDTO.getCity().equals("Melbourne"));
+		WeatherDTO weatherDTO = source.getCurrentWeatherByName("Sydney");
+//		assertNull(weatherDTO);
+//		assertNull(weatherDTO);
+        assertNotNull(weatherDTO);
+        assertNotNull(weatherDTO.getCity());
+        assertTrue(weatherDTO.getCity().equals("Sydney"));
 	}
 }

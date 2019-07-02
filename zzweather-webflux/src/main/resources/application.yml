@@ -2,8 +2,16 @@ server:
   port: 9090
 
 zzweather:
-  source: "BOM"
+  source: "WeatherBit"
   locations:
     - "Sydney"
     - "Melbourne"
     - "Wollongong"
+
+provider:
+  name: "WeatherBit"
+  contry: "AU"
+  postcode:
+    - "Sydney-2000"
+    - "Melbourne-3000"
+    - "Wollongong-2500"
