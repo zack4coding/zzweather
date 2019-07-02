@@ -1,5 +1,18 @@
 ## zzweather
 This is a web application to  display current weather which implement by [Spring Boot/Webflux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux) and [Vue](https://vuejs.org/). 
+<br>
+[The fronted project](https://github.com/zack4coding/zzweather-vue)
+
+Start it by <br>
+Step 1:
+```
+$ cd /path/to/zzweather
+$ mvn clean install
+```
+Step 2
+```
+$ cd ./zzweather-webflux
+$ mvn spring-boot:run
 
 #### Modules of zzweather
 
