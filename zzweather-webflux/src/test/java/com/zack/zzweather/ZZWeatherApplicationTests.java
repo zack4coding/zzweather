@@ -35,7 +35,7 @@ public class ZZWeatherApplicationTests {
 
 
 		List<WeatherDTO> result = this.client.get()
-				.uri("/current/event")
+				.uri("/current/event?city=Sydney")
 				.accept(TEXT_EVENT_STREAM)
 				.exchange()
 				.expectStatus().isOk()

@@ -7,12 +7,10 @@ import com.zack.zzweather.config.ProviderConfig;
 import com.zack.zzweather.service.api.dto.WeatherDTO;
 import com.zack.zzweather.service.provider.source.AbstractProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class WeatherBitSourceProvider extends AbstractProvider {
@@ -20,7 +18,6 @@ public class WeatherBitSourceProvider extends AbstractProvider {
     private ProviderConfig providerConfig;
 
     private String PROVIDER_URL;
-    private final long PROVIDER_UPDATE_CRON = 10L;
 
     private final String PROVIDER_POSTCODE_KEY = "postal_code";
     private final String PROVIDER_COUNTRY_KEY = "country";
@@ -30,7 +27,6 @@ public class WeatherBitSourceProvider extends AbstractProvider {
     private String PROVIDER_COUNTRY_VALUE;
 
     private Map<String, String> cityPostcodeMap = new HashMap<>();
-    private Map<String, WeatherDTO> cache = new ConcurrentHashMap<>();
 
     @Autowired
     public WeatherBitSourceProvider(ProviderConfig providerConfig) {
@@ -49,38 +45,6 @@ public class WeatherBitSourceProvider extends AbstractProvider {
 
     @Override
     public WeatherDTO getCurrentWeatherByName(String name) {
-
-        /**
-         *  Get weather data from cache first, if not refresh by the city name.
-         *  TODO Make Semaphores to mark whether have clients want know the current weather by flux.
-         *  If yes, push the update data to client.
-         */
-        WeatherDTO weather = cache.get(name);
-        if (weather == null) {
-            return refreshWeather(name);
-        }
-        return weather;
-
-    }
-
-    @Override
-    public WeatherDTO getCurrentWeatherByGPS(String longitude, String latitude) {
-        return null;
-    }
-
-    private WeatherDTO getValueFromJson(JSONObject jsonObject, String name) {
-        JSONArray jsonArray = jsonObject.getJSONArray("data");
-        JSONObject jsonWeather = jsonArray.getJSONObject(0);
-        return new WeatherDTO(
-                name,
-                System.currentTimeMillis(),
-                jsonWeather.getJSONObject("weather").getString("description"),
-                jsonWeather.getString("temp")+"°C",
-                jsonWeather.getString("wind_spd")+"m/s"
-        );
-    }
-
-    private WeatherDTO refreshWeather(String name) {
         try {
 
             Map params = new HashMap();
@@ -100,17 +64,21 @@ public class WeatherBitSourceProvider extends AbstractProvider {
         }
     }
 
-    /**
-     *  This func should be impl in module scheduler.
-     *  Due to delivery deadline, write as this.
-     */
-    @Scheduled(fixedDelay = PROVIDER_UPDATE_CRON)
-    public void taskUpdate() {
-        if (cache.size() > 0) {
-            for (WeatherDTO weatherDTO : cache.values()) {
-                WeatherDTO updated = refreshWeather(weatherDTO.getCity());
-                cache.put(weatherDTO.getCity(), updated);
-            }
-        }
+    @Override
+    public WeatherDTO getCurrentWeatherByGPS(String longitude, String latitude) {
+        return null;
     }
+
+    private WeatherDTO getValueFromJson(JSONObject jsonObject, String name) {
+        JSONArray jsonArray = jsonObject.getJSONArray("data");
+        JSONObject jsonWeather = jsonArray.getJSONObject(0);
+        return new WeatherDTO(
+                name,
+                System.currentTimeMillis(),
+                jsonWeather.getJSONObject("weather").getString("description"),
+                jsonWeather.getString("temp")+"°C",
+                jsonWeather.getString("wind_spd")+"m/s"
+        );
+    }
+
 }
