@@ -25,6 +25,7 @@
 		<module>zzweather-service-provider</module>
 		<module>zzweather-scheduler</module>
 		<module>zzweather-exception</module>
+		<module>zzweather-common-utils</module>
 		<module>zzweather-configuration</module>
 	</modules>
 
