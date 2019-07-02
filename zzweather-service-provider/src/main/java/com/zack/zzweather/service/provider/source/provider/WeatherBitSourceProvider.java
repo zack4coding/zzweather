@@ -1,5 +1,6 @@
 package com.zack.zzweather.service.provider.source.provider;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zack.zzweather.common.utils.HttpSender;
 import com.zack.zzweather.config.ProviderConfig;
@@ -16,7 +17,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class WeatherBitSourceProvider extends AbstractProvider {
 
-    @Autowired
     private ProviderConfig providerConfig;
 
     private String PROVIDER_URL;
@@ -32,7 +32,8 @@ public class WeatherBitSourceProvider extends AbstractProvider {
     private Map<String, String> cityPostcodeMap = new HashMap<>();
     private Map<String, WeatherDTO> cache = new ConcurrentHashMap<>();
 
-    public WeatherBitSourceProvider() {
+    @Autowired
+    public WeatherBitSourceProvider(ProviderConfig providerConfig) {
 
         SOURCE_NAME = providerConfig.getName();
 
@@ -68,12 +69,14 @@ public class WeatherBitSourceProvider extends AbstractProvider {
     }
 
     private WeatherDTO getValueFromJson(JSONObject jsonObject, String name) {
+        JSONArray jsonArray = jsonObject.getJSONArray("data");
+        JSONObject jsonWeather = jsonArray.getJSONObject(0);
         return new WeatherDTO(
                 name,
                 System.currentTimeMillis(),
-                jsonObject.getJSONObject("weather").getString("description"),
-                jsonObject.getString("temp")+"°C",
-                jsonObject.getString("wind_spd")+"m/s"
+                jsonWeather.getJSONObject("weather").getString("description"),
+                jsonWeather.getString("temp")+"°C",
+                jsonWeather.getString("wind_spd")+"m/s"
         );
     }
 
