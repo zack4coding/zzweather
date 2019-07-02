@@ -1,0 +1,7 @@
+server:
+  port: 9090
+  source: "Pick up a source provider"
+  locations:
+    - "Sydney"
+    - "Melbourne"
+    - "Wollongong"

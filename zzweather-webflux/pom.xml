@@ -20,7 +20,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.zack.zzweather</groupId>
-			<artifactId>zzweather-service-api</artifactId>
+			<artifactId>zzweather-service-provider</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

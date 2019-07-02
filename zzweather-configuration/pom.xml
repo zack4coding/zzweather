@@ -8,11 +8,11 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.zack.zzweather</groupId>
-	<artifactId>zzweather-common-utils</artifactId>
+	<artifactId>zzweather-configuration</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>zzweather-common-utils</name>
+	<name>zzweather-configuration</name>
 	<description> Weather service of ZZ,
-		common utils ，for example Okhttp</description>
+		configuration</description>
 
 	<properties>
 		<java.version>1.8</java.version>
