@@ -10,8 +10,10 @@ zzweather:
 
 provider:
   name: "WeatherBit"
-  contry: "AU"
-  postcode:
+  country: "AU"
+  url: "https://api.weatherbit.io/v2.0/current"
+  key: "212a258a95b84252bedc97d973b97bbf"
+  postcodes:
     - "Sydney-2000"
     - "Melbourne-3000"
     - "Wollongong-2500"

@@ -3,7 +3,6 @@ package com.zack.zzweather;
 import com.zack.zzweather.service.api.dto.WeatherDTO;
 import com.zack.zzweather.service.provider.source.Source;
 import com.zack.zzweather.service.provider.source.SourceManager;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,10 +71,11 @@ public class ZZWeatherApplicationTests {
 
 		source = sourceManager.getActivitySource();
 		WeatherDTO weatherDTO = source.getCurrentWeatherByName("Sydney");
-//		assertNull(weatherDTO);
-//		assertNull(weatherDTO);
-        assertNotNull(weatherDTO);
-        assertNotNull(weatherDTO.getCity());
-        assertTrue(weatherDTO.getCity().equals("Sydney"));
+		assertNotNull(weatherDTO);
+		assertNotNull(weatherDTO.getCity());
+		assertNotNull(weatherDTO.getTemperature());
+		assertNotNull(weatherDTO.getWeather());
+		assertNotNull(weatherDTO.getWind());
+		assertTrue(weatherDTO.getCity().equals("Sydney"));
 	}
 }
