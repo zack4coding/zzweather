@@ -3,14 +3,13 @@ package com.zack.zzweather.service.provider.source.provider;
 import com.zack.zzweather.service.api.dto.WeatherDTO;
 import com.zack.zzweather.service.provider.source.AbstractProvider;
 import com.zack.zzweather.service.provider.source.Source;
-
-import javax.annotation.PostConstruct;
-
+import org.springframework.stereotype.Service;
 
 /**
  *  Source data of Australia weather, provided by BOM of au gov.
  *  Just not implement now.
  */
+@Service
 public class BOMWeatherSourceProvider extends AbstractProvider implements Source {
 
 

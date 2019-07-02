@@ -1,6 +1,9 @@
 package com.zack.zzweather;
 
 import com.zack.zzweather.service.api.dto.WeatherDTO;
+import com.zack.zzweather.service.provider.source.Source;
+import com.zack.zzweather.service.provider.source.SourceManager;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +15,18 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.springframework.http.MediaType.TEXT_EVENT_STREAM;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ZZWeatherApplicationTests {
+
+
+	private Source source;
+
+	@Autowired
+	private SourceManager sourceManager;
 
 	@Autowired
 	private WebTestClient client;
@@ -58,4 +68,14 @@ public class ZZWeatherApplicationTests {
         ;
     }
 
+	@Test
+	public void testGetCurrentWeatherByPostcode() {
+
+		source = sourceManager.getActivitySource();
+		WeatherDTO weatherDTO = source.getCurrentWeatherByPostcode("AU300000");
+		assertNull(weatherDTO);
+//        assertNotNull(weatherDTO);
+//        assertNotNull(weatherDTO.getCity());
+//        assertTrue(weatherDTO.getCity().equals("Melbourne"));
+	}
 }
